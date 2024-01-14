@@ -19,11 +19,11 @@ class FortinetFortiOSDriver(GenericDriver):
     """
 
     def __init__(self, **kwargs: Any):
-        self.logger.info("INITING")
         self._vdoms_enabled: bool = False
         self._vdom_list: List[str] = []
         self._original_console: str = ""
         super().__init__(**kwargs)
+        self.logger.info("INITING")
 
     def _vdoms_status(self) -> bool:
         """Determine whether virtual domains are enabled or not
