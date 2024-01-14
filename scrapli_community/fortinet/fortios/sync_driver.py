@@ -23,7 +23,6 @@ class FortinetFortiOSDriver(GenericDriver):
         self._vdom_list: List[str] = []
         self._original_console: str = ""
         super().__init__(**kwargs)
-        self.logger.info("INITING")
 
     def _vdoms_status(self) -> bool:
         """Determine whether virtual domains are enabled or not
@@ -43,17 +42,15 @@ class FortinetFortiOSDriver(GenericDriver):
         #     set post-login-banner enable
         # end
 
-        self.channel.write("\n")
-        initial = self.channel.read()
-        self.logger.info(initial)
-        if "(Press 'a' to accept):" in str(initial):
-            self.channel.write("a")
+        self.channel.write("a")
+        # initial = self.channel.read()
+        # if "(Press 'a' to accept):" in str(initial):
+        #     self.channel.write("a")
         self.get_prompt()
         self._vdoms_enabled = self._vdoms_status()
         if self._vdoms_enabled:
             self.context("global")
         response = self.send_command("get system console | grep ^output")
-        self.logger.info(response.result)
         self._original_console = re.findall(r".*: (\w+)", response.result)[0]
         if self._original_console != "standard":
             disable_paging = textwrap.dedent(
