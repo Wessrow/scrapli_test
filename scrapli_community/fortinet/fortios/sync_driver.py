@@ -19,6 +19,7 @@ class FortinetFortiOSDriver(GenericDriver):
     """
 
     def __init__(self, **kwargs: Any):
+        self.logger.info("INITING")
         self._vdoms_enabled: bool = False
         self._vdom_list: List[str] = []
         self._original_console: str = ""
@@ -41,7 +42,9 @@ class FortinetFortiOSDriver(GenericDriver):
         # config system global
         #     set post-login-banner enable
         # end
+        self.logger.info("HIT")
         initial = self.channel.read()
+        self.logger.info(initial)
         if "(Press 'a' to accept):" in str(initial):
             self.channel.write("a")
         self.get_prompt()
