@@ -43,6 +43,7 @@ class FortinetFortiOSDriver(GenericDriver):
         #     set post-login-banner enable
         # end
 
+        self.channel.write("\n")
         initial = self.channel.read()
         self.logger.info(initial)
         if "(Press 'a' to accept):" in str(initial):
@@ -328,7 +329,7 @@ def default_sync_on_open(conn: FortinetFortiOSDriver) -> None:
     Raises:
         N/A
     """
-    conn.send_command("get system status")
+    conn.prepare_session()
 
 
 def default_sync_on_close(conn: FortinetFortiOSDriver) -> None:
