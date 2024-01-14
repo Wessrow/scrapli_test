@@ -42,8 +42,8 @@ class FortinetFortiOSDriver(GenericDriver):
         # config system global
         #     set post-login-banner enable
         # end
-        self.logger.info("HIT")
-        initial = self.channel._read_until_prompt()
+
+        initial = self.channel.read()
         self.logger.info(initial)
         if "(Press 'a' to accept):" in str(initial):
             self.channel.write("a")
