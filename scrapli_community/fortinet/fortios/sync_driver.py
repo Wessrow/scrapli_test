@@ -42,10 +42,10 @@ class FortinetFortiOSDriver(GenericDriver):
         #     set post-login-banner enable
         # end
 
+        # Send an initial character to for return channel to be read.
+        # This character is 'a' because it also accepts any banner that might be configured. 
+        self.logger.info(self.channel.read())
         self.channel.write("a")
-        # initial = self.channel.read()
-        # if "(Press 'a' to accept):" in str(initial):
-        #     self.channel.write("a")
         self.get_prompt()
         self._vdoms_enabled = self._vdoms_status()
         if self._vdoms_enabled:
