@@ -328,7 +328,7 @@ def default_sync_on_open(conn: FortinetFortiOSDriver) -> None:
     Raises:
         N/A
     """
-    conn.prepare_session()
+    conn.send_command("get system status")
 
 
 def default_sync_on_close(conn: FortinetFortiOSDriver) -> None:
